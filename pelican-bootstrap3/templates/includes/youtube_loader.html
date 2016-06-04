@@ -1,0 +1,9 @@
+{% if YOUTUBE_CHANNEL %}
+<script>
+$(function(){
+	window.setTimeout(function() {
+		window.setTimeout( function() { $('#youtubeiframe').attr('src', "{{ YOUTUBE_CHANNEL }}" )}, 2000);
+	})
+});
+</script>
+{% endif %}

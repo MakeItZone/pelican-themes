@@ -1,0 +1,31 @@
+{% if DISPLAY_RECENT_POSTS_ON_SIDEBAR %}
+    {% if RECENT_POST_COUNT is not defined %}
+        {% set RECENT_POST_COUNT = 5 %}
+    {% endif %}
+    <li class="list-group-item"><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><h4><i class="fa fa-pencil fa-lg"></i><span class="icon-label">Latest Blog Entries</span></h4></a>
+        <ul class="list-group" id="recentposts">
+            {% for article in articles[:RECENT_POST_COUNT] %}
+                <li class="list-group-item">
+                    <i class="fa fa-star fa-lg"></i>
+                    <a href="{{ SITEURL }}/{{ article.url }}">
+                        {{ article.title }}
+                    </a>
+                </li>
+            {% endfor %}
+
+            <li class="list-group-item">
+                <i class="fa fa-star fa-lg"></i>
+                <i><a href="{{ SITEURL }}/{{ CATEGORIES_URL }}">
+                    Blog Categories
+                </a></i>
+            </li>
+
+            <li class="list-group-item">
+                <i class="fa fa-star fa-lg"></i>
+                <i><a href="{{ SITEURL }}/{{ TAGS_URL }}">
+                    Blog Tags
+                </a></i>
+            </li>
+        </ul>
+    </li>
+{% endif %}

@@ -46,23 +46,34 @@
     {% endif %}
 {% endblock %}
 
+{% block css %}
+    {% if article.stylesheets %}
+        {% for stylesheet in article.stylesheets %}
+            {{ stylesheet }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
 {% block canonical_rel %}
 <link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">
 {% endblock %}
 
 {% block breadcrumbs %}
     {% if DISPLAY_BREADCRUMBS %}
-        {% if DISPLAY_CATEGORY_IN_BREADCRUMBS %}
-            <ol class="breadcrumb">
-                <li><a href="{{ SITEURL }}" title="{{ SITENAME }}"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="{{ SITEURL }}/{{ article.category.url }}" title="{{ article.category }}">{{ article.category }}</a></li>
-                <li class="active">{{ article.title }}</li>
-            </ol>
-        {% else %}
-            <ol class="breadcrumb">
-                <li><a href="{{ SITEURL }}" title="{{ SITENAME }}"><i class="fa fa-home fa-lg"></i></a></li>
-                <li class="active">{{ article.title }}</li>
-            </ol>
+        {% if article.hidebreadcrumbs | default("false") | lower != "true" %}
+            {% if DISPLAY_CATEGORY_IN_BREADCRUMBS %}
+                <ol class="breadcrumb">
+                    <li><a href="{{ SITEURL }}" title="{{ SITENAME }}"><i class="fa fa-home fa-lg"></i></a></li>
+                    <li><a href="{{ SITEURL }}/{{ article.category.url }}" title="{{ article.category }}">{{ article.category }}</a></li>
+                    <li class="active">{{ article.title }}</li>
+                </ol>
+            {% else %}
+                <ol class="breadcrumb">
+                    <li><a href="{{ SITEURL }}" title="{{ SITENAME }}"><i class="fa fa-home fa-lg"></i></a></li>
+                    <li class="active">{{ article.title }}</li>
+                </ol>
+            {% endif %}
         {% endif %}
     {% endif %}
 {% endblock %}
@@ -77,14 +88,35 @@
                        title="Permalink to {{ article.title|striptags }}">
                         {{ article.title }}
                     </a>
+                    {% if PDF_PROCESSOR %}
+                        <a href="{{ SITEURL }}/pdf/{{ page.slug }}.pdf">
+                            get the pdf
+                        </a>
+                    {% endif %}
                 </h1>
             </header>
+
+    
             <div class="entry-content">
                 <div class="panel">
                     <div class="panel-body">
                         {% include "includes/article_info.html" %}
                     </div>
                 </div>
+
+                {% if article.toc %}
+                    <div class="panel panel-default pull-right" style="margin-left: 10px; margin-top: 25px;">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Contents</h3>
+                        </div>
+                        <div class="panel-body">
+                            <nav class="toc" style="width:200px;">
+                            {{ article.toc }}
+                            </nav>
+                        </div>
+                    </div>
+                {% endif %}
+
                 {{ article.content }}
             </div>
             <!-- /.entry-content -->
@@ -109,4 +141,11 @@
     <!-- add shariff support -->
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/shariff.min.js"></script>
 {% endif %}
+
+{% if article.javascripts %}
+    {% for javascript in article.javascripts %}
+        {{ javascript }}
+    {% endfor %}
+{% endif %}
 {% endblock %}
+

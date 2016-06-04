@@ -1,0 +1,7 @@
+{% if FACEBOOK_PAGE %}
+	<script>
+		$(function() {
+		    window.setTimeout( function() { $('#facebookiframe').attr('src', "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/html/facebook_iframe.html" )}, 2500);
+		});
+	</script>
+{% endif %}

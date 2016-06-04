@@ -1,0 +1,39 @@
+{% if SIDEBARPAGES %}
+    <li class="list-group-item"><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><h4><i class="fa fa-info-circle fa-lg"></i><span class="icon-label">Info</span></h4></a>
+        <ul class="list-group" id="infopages">
+            {% for listee in SIDEBARPAGES %}
+                {% for page in pages %}
+                    {% if listee[0]|lower == page.slug|lower %}
+                    <li class="list-group-item">
+                        <i class="fa fa-{{listee[1]}} fa-lg"></i>
+                        <a href="{{ SITEURL }}/{{ page.url }}">
+                            {{ page.title }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            {% if SIDEBARMENUPAGES %}
+                <li class="list-group-item dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars fa-lg"></i> More <i class="fa fa-caret-down fa-lg"></i></a>
+                    <ul class="dropdown-menu">
+                        {% for listee in SIDEBARMENUPAGES %}
+                            {% for page in pages %}
+                                {% if listee[0]|lower == page.slug|lower %}
+                                <li>
+                                    <a href="{{ SITEURL }}/{{ page.url }}">
+                                        <i class="fa fa-{{listee[1]}} fa-lg"></i>
+                                        {{ page.title }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    </li>
+{% endif %}
