@@ -2,7 +2,7 @@
     {% if RECENT_POST_COUNT is not defined %}
         {% set RECENT_POST_COUNT = 5 %}
     {% endif %}
-    <li class="list-group-item"><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><h4><i class="fa fa-pencil fa-lg"></i><span class="icon-label">Latest Blog Entries</span></h4></a>
+    <li class="list-group-item"><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><h4><i class="fa fa-pencil fa-lg"></i><span class="icon-label">{{ _('Recent Posts') }}</span></h4></a>
         <ul class="list-group" id="recentposts">
             {% for article in articles[:RECENT_POST_COUNT] %}
                 <li class="list-group-item">

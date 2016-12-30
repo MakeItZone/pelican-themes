@@ -230,50 +230,97 @@
                     </aside>
                 </div>
                 {% endif %}
-            </div>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            {% if 'tipue_search' in PLUGINS %}
+              <li><span>
+                <form class="navbar-search" action="{{ SEARCH_URL | default('/search.html') }}">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            {% endif %}
+            {% if ARCHIVES_SAVE_AS %}
+              <li><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><i class="fa fa-th-list"></i><span class="icon-label">{{ _('Archives') }}</span></a></li>
+            {% endif %}
+            </ul>
         </div>
-        {% include 'includes/footer.html' %}
-
-        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
-
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
-
-        <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/respond.min.js"></script>
-
-        <!-- scroll magic -->
-        {% include 'includes/scrollmagic-script.html' %}
-
-        <!-- adding smooch -->
-        {% include 'includes/smooch_script.html' %}
-
-        <!-- adding UserReport -->
-        {% include 'includes/userreport-script.html' %}
-
-        <!-- delay load YouTube -->
-        {% include 'includes/youtube_loader.html' %}
-
-        <!-- delay load facebook -->
-        {% include 'includes/facebook_loader.html' %}
-
-        <!-- delay load twitter -->
-        {% include 'includes/twitter_loader.html' %}
-
-        <!-- facebook responsive hack -->
-        <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/responsiveFacebook.js"></script>
-
-
-        {% if BANNER %}
-            <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bodypadding.js"></script>
-        {% endif %}
-        {% include 'includes/github-js.html' %}
-        {% include 'includes/disqus_script.html' %}
-        {% include 'includes/ga.html' %}
-        {% include 'includes/piwik.html' %}
-
-        <!-- custom js per template -->
-        {% block scripts %}{% endblock %}
+        <!-- /.navbar-collapse -->
     </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+{% if BANNER and BANNER_ALL_PAGES %}
+    {% include 'includes/banner.html' %}
+{% elif BANNER and not BANNER_ALL_PAGES %}
+    {% block banner %}{% endblock %}
+{% endif %}
+<!-- End Banner -->
+<div class="container{% if BOOTSTRAP_FLUID %}-fluid{% endif %}">
+    <div class="row">
+        {% if not HIDE_SIDEBAR or ABOUT_ME or AVATAR %}
+        <div class="col-sm-9">
+        {% else %}
+        <div class="col-lg-12">
+        {% endif %}
+        {% block breadcrumbs %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+        </div>
+        {% if not HIDE_SIDEBAR or ABOUT_ME or AVATAR %}
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+            {% if ABOUT_ME or AVATAR %}
+                {% include 'includes/aboutme.html' %}
+            {% endif %}
+            {% if not HIDE_SIDEBAR %}
+                {% include 'includes/sidebar.html' %}
+            {% endif %}
+            </aside>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% include 'includes/footer.html' %}
+
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/respond.min.js"></script>
+
+<!-- scroll magic -->
+{% include 'includes/scrollmagic-script.html' %}
+
+<!-- adding smooch -->
+{% include 'includes/smooch_script.html' %}
+
+<!-- adding UserReport -->
+{% include 'includes/userreport-script.html' %}
+
+<!-- delay load YouTube -->
+{% include 'includes/youtube_loader.html' %}
+
+<!-- delay load facebook -->
+{% include 'includes/facebook_loader.html' %}
+
+<!-- delay load twitter -->
+{% include 'includes/twitter_loader.html' %}
+
+<!-- facebook responsive hack -->
+<script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/responsiveFacebook.js"></script>
+
+
+{% if BANNER %}
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bodypadding.js"></script>
+{% endif %}
+{% include 'includes/github-js.html' %}
+{% include 'includes/disqus_script.html' %}
+{% include 'includes/ga.html' %}
+{% include 'includes/piwik.html' %}
+
+<!-- custom js per template -->
+{% block scripts %}{% endblock %}
 </body>
 </html>
