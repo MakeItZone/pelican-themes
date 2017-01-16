@@ -75,7 +75,6 @@
 
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/splitText.css" type="text/css"/>
 
-
     {% if CUSTOM_CSS %}
         <link href="{{ SITEURL }}/{{ CUSTOM_CSS }}" rel="stylesheet">
     {% endif %}
@@ -271,6 +270,10 @@
 {% include 'includes/disqus_script.html' %}
 {% include 'includes/ga.html' %}
 {% include 'includes/piwik.html' %}
+
+<!-- Ace editor -->
+{{ ace_editor }}
+
 
 <!-- custom js per template -->
 {% block scripts %}{% endblock %}
